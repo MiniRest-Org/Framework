@@ -49,7 +49,7 @@ class RequestValidator
     {
         $this->objectType = $objectType;
 
-        $data = (new Request())->all()->get($objectType);
+        $data = (new Request())->all()[$objectType];
 
         $this->errorMessages = [];
         foreach ($this->rules as $field => $rules) {
