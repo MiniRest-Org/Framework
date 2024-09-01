@@ -7,6 +7,12 @@ use MiniRestFramework\Tests\Objects\ExampleController;
 use MiniRestFramework\Tests\Objects\ExampleMiddleware;
 use MiniRestFramework\Tests\Objects\ExampleMiddleware2;
 
+
+Route::prefix('/api')->group([], function () {
+    Route::post('/', [ExampleController::class, 'handleRequest']);
+    Route::post('/test', [ExampleController::class, 'testWithoutDI']);
+});
+
 Route::prefix('/api2')->group([ExampleMiddleware::class], function () {
     Route::post('/test', [ExampleController::class, 'handleRequest']);
 });
@@ -52,9 +58,6 @@ Route::post('/sayHello', [ExampleController::class, 'testMethod']);
 Route::post('/testParam/{id}', [ExampleController::class, 'testParam']);
 Route::post('/testParam2/{id}/{isReal}', [ExampleController::class, 'testParam'], [ExampleMiddleware::class]);
 
-Route::prefix('/api')->group([], function () {
-    Route::post('/test', [ExampleController::class, 'handleRequest']);
-});
 
 Route::prefix('/v2')->group([], function () {
     Route::prefix('/api')->group([], function () {

@@ -14,27 +14,27 @@ class Route
 
     public static function get($uri, $action, $middleware = []): void
     {
-        Router::add(self::METHOD_GET, $uri, $action, self::getRoutePrefix(), $middleware);
+        Router::add(self::METHOD_GET, self::handleRoutePrefix($uri), $action, self::getRoutePrefix(), $middleware);
     }
 
     public static function post($uri, $action, $middleware = []): void
     {
-        Router::add(self::METHOD_POST, $uri, $action, self::getRoutePrefix(), $middleware);
+        Router::add(self::METHOD_POST, self::handleRoutePrefix($uri), $action, self::getRoutePrefix(), $middleware);
     }
 
     public static function put($uri, $action, $middleware = []): void
     {
-        Router::add(self::METHOD_PUT, $uri, $action, self::getRoutePrefix(), $middleware);
+        Router::add(self::METHOD_PUT, self::handleRoutePrefix($uri), $action, self::getRoutePrefix(), $middleware);
     }
 
     public static function delete($uri, $action, $middleware = []): void
     {
-        Router::add(self::METHOD_DELETE, $uri, $action, self::getRoutePrefix(), $middleware);
+        Router::add(self::METHOD_DELETE, self::handleRoutePrefix($uri), $action, self::getRoutePrefix(), $middleware);
     }
 
     public static function patch($uri, $action, $middleware = []): void
     {
-        Router::add(self::METHOD_PATCH, $uri, $action, self::getRoutePrefix(), $middleware);
+        Router::add(self::METHOD_PATCH, self::handleRoutePrefix($uri), $action, self::getRoutePrefix(), $middleware);
     }
 
     public static function prefix($prefix): Route
@@ -63,5 +63,10 @@ class Route
     private static function getRoutePrefix(): string
     {
         return end(self::$prefixStack) ?: '';
+    }
+
+    private static function handleRoutePrefix($uri): string
+    {
+        return self::getRoutePrefix() !== '' && $uri === '/' ? '' : $uri;
     }
 }
