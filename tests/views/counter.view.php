@@ -5,7 +5,7 @@
 @endsection
 
 @section('header')
-<h1>Olá, {{ $username }}</h1>
+<h1>Olá, {{ strlen($username) > 5 ? 'Grande' : 'Pequeno' }}</h1>
 @endsection
 
 @section('content')

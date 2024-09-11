@@ -7,17 +7,23 @@ class Container {
     private array $bindings = [];
 
     /**
-     * Associa uma interface a uma implementação específica.
+     * Associa uma interface ou alias a uma implementação específica.
+     *
+     * @param string $abstract
+     * @param callable|string $concrete
      */
-    public function bind(string $abstract, string $concrete)
+    public function bind(string $abstract, callable|string $concrete): void
     {
         $this->bindings[$abstract] = $concrete;
     }
 
     /**
      * Registra um singleton no container.
+     *
+     * @param string $abstract
+     * @param callable|string $concrete
      */
-    public function singleton(string $abstract, $concrete)
+    public function singleton(string $abstract, callable|string $concrete): void
     {
         $this->instances[$abstract] = is_callable($concrete) ? $concrete() : $concrete;
     }
@@ -29,7 +35,7 @@ class Container {
      * @return mixed A instância resolvida.
      * @throws \Exception Se o serviço não for encontrado ou não puder ser instanciado.
      */
-    public function make($abstract)
+    public function make(object|string $abstract): mixed
     {
         $key = is_object($abstract) ? spl_object_hash($abstract) : $abstract;
 
@@ -46,7 +52,7 @@ class Container {
             if (!class_exists($abstract)) {
                 throw new \Exception("Class {$abstract} not found.");
             }
-//            dd(class_exists($abstract));
+
             $reflection = new \ReflectionClass($abstract);
         } elseif (is_object($abstract)) {
             $reflection = new \ReflectionClass($abstract);
@@ -90,7 +96,7 @@ class Container {
      * @return mixed O resultado do método chamado.
      * @throws \Exception Se não for possível resolver as dependências.
      */
-    public function callMethod(object $instance, string $method, array $parameters = [])
+    public function callMethod(object $instance, string $method, array $parameters = []): mixed
     {
         $reflection = new \ReflectionMethod($instance, $method);
         $dependencies = [];
@@ -116,7 +122,7 @@ class Container {
      * @return mixed A instância do serviço.
      * @throws \Exception Se o serviço não estiver registrado.
      */
-    public function get(string $abstract)
+    public function get(string $abstract): mixed
     {
         return $this->make($abstract);
     }

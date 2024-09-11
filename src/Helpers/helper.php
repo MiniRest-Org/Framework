@@ -1,7 +1,5 @@
 <?php
 
-use MiniRestFramework\DI\ContainerManager;
-
 if (!function_exists("view")) {
     /**
      * Renderiza um template com variáveis.
@@ -13,8 +11,7 @@ if (!function_exists("view")) {
      */
     function view(string $template, array $variables = []): bool|string
     {
-        $templateEngine = ContainerManager::get('templateEngine');
-        return $templateEngine->render($template, $variables);
+        return \MiniRestFramework\Support\Facades\TemplateEngine::render($template, $variables);
     }
 }
 
@@ -60,8 +57,7 @@ if (!function_exists("config")) {
      */
     function config(string $key, mixed $default = null): mixed
     {
-        $config = ContainerManager::get('config');
-        return $config->get($key, $default);
+        return \MiniRestFramework\Support\Facades\Config::get($key, $default);
     }
 }
 

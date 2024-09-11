@@ -25,7 +25,7 @@ Route::post('/testClosures/{id}/{isReal}', function (Request $request, $id, $isR
 
 
 Route::get('/test/xss', function (Request $request) {
-    return Response::html($request->all()->get('get')['data']);
+    return Response::html($request->get('data'));
 });
 
 Route::get('/example/view/{nome}', function (Request $request, string $nome) {

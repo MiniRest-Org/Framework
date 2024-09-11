@@ -2,30 +2,47 @@
 
 namespace MiniRestFramework\Core;
 use MiniRestFramework\DI\Container;
-use MiniRestFramework\Http\Request\Request;
-use MiniRestFramework\Router\ActionDispatcher;
-use MiniRestFramework\Router\Router;
-use MiniRestFramework\Router\RouterLoader;
 
 class App {
     private Container $container;
+
+    protected array $bootstrappers = [
+        \MiniRestFramework\Bootstrappers\LoadEnvironmentVariables::class,
+        \MiniRestFramework\Bootstrappers\LoadConfiguration::class,
+        \MiniRestFramework\Bootstrappers\RegisterFacades::class,
+        \MiniRestFramework\Bootstrappers\RegisterProviders::class,
+        \MiniRestFramework\Bootstrappers\BootProviders::class,
+    ];
+
+    protected array $providers = [];
+    private string $base_path;
 
     public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
+    public function bootstrap(): void
+    {
+        foreach ($this->bootstrappers as $bootstrapper) {
+            (new $bootstrapper($this->container))->bootstrap();
+        }
+    }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function run()
     {
-        $actionDispatcher = new ActionDispatcher($this->container);
+        // Bootstrap the framework (load configurations, etc.)
+        $this->bootstrap();;
 
-        RouterLoader::load();
+    }
 
-        $router = new Router($actionDispatcher);
-        $router->dispatch(new Request())->send();
+    public function getBasePath(): string
+    {
+        return $this->base_path;
+    }
+
+    public function setBasePath(string $base_path): void
+    {
+        $this->base_path = $base_path;
     }
 }

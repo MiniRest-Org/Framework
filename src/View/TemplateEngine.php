@@ -20,7 +20,7 @@ class TemplateEngine {
 
     protected function loadDirectives(): void
     {
-        $directivesConfig = require __DIR__ . '/../config/directives.php';
+        $directivesConfig = require __DIR__ . '/config/directives.php';
 
         foreach ($directivesConfig as $name => $config) {
             $this->addDirective($name, $config['callback'], $config['pattern']);
@@ -81,9 +81,9 @@ class TemplateEngine {
     {
         // Substituições para variáveis Blade {{ $variavel }}
         $content = preg_replace_callback(
-            '/{{\s*(\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\s*}}/',
+            '/{{\s*(.*?)\s*}}/',
             function ($matches) {
-                return '<?php echo htmlspecialchars(' . $matches[1] . ', ENT_QUOTES, \'UTF-8\'); ?>';
+                return '<?php echo htmlspecialchars(' . $this->parseExpression($matches[1]) . ', ENT_QUOTES, \'UTF-8\'); ?>';
             },
             $content
         );
@@ -101,6 +101,18 @@ class TemplateEngine {
         }
 
         return $content;
+    }
+
+    /**
+     * Analisa e retorna uma expressão PHP.
+     *
+     * @param string $expression A expressão a ser analisada.
+     * @return string A expressão PHP analisada.
+     */
+    protected function parseExpression(string $expression): string
+    {
+        // Evita a execução de código malicioso, não permitimos comandos PHP diretos.
+        return str_replace(['<?php', '?>'], '', $expression);
     }
 
 
