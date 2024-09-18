@@ -13,7 +13,7 @@ class ExampleMiddleware implements MiddlewareInterface
     public function handle(Request $request, Closure $next)
     {
         if ($request->id > 10) {
-            return Response::json($request->isReal);
+            return Response::json((bool)$request->isReal);
         }
 
         return $next($request);

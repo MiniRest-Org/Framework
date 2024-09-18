@@ -2,6 +2,7 @@
 
 namespace MiniRestFramework\Support\Facades;
 
+use Illuminate\Support\Collection;
 use MiniRestFramework\DI\Container;
 
 abstract class Facade
@@ -47,5 +48,16 @@ abstract class Facade
         $instance = static::resolveInstance();
 
         return $instance->$method(...$arguments);
+    }
+
+    public static function defaultAliases(): Collection
+    {
+        return collect([
+            'App' => App::class,
+            'Config' => Config::class,
+            'View' => View::class,
+            'Router' => Route::class,
+            'Route' => Route::class,
+        ]);
     }
 }

@@ -4,11 +4,11 @@ use MiniRestFramework\Core\App;
 
 $container = new \MiniRestFramework\DI\Container();
 
-$container->singleton('app', function() use ($container) {
+$container->singleton(App::class, function() use ($container) {
     return new App($container);
 });
 
-$app = $container->make('app');
+$app = $container->make(App::class);
 
 $app->setBasePath(dirname(__DIR__));
 

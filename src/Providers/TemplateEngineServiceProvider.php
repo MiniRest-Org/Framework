@@ -9,7 +9,7 @@ class TemplateEngineServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singleton('templateEngine', function () {
+        $this->app->singleton(TemplateEngine::class, function () {
             return new TemplateEngine(config('app.views_path'));
         });
     }

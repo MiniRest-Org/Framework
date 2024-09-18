@@ -11,6 +11,6 @@ class Config extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'config';
+        return \MiniRestFramework\config\Config::class;
     }
 }

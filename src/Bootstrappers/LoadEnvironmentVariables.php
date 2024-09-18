@@ -2,6 +2,7 @@
 
 namespace MiniRestFramework\Bootstrappers;
 
+use MiniRestFramework\Core\App;
 use MiniRestFramework\DI\Container;
 use Dotenv\Dotenv;
 
@@ -17,7 +18,7 @@ class LoadEnvironmentVariables
     public function bootstrap()
     {
         // Obtém a instância da classe App do container
-        $app = $this->container->make('app');
+        $app = $this->container->make(App::class);
         $basePath = $app->getBasePath();
 
         // Localiza o arquivo .env

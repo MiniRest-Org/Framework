@@ -63,7 +63,7 @@ class Request extends RequestValidator
     public function all(): array
     {
         return [
-            'get' => $this->sanitize($_GET),
+            'get' => $this->sanitize(array_merge($_GET, $this->getRouteParams())),
             'post' => $this->sanitize($_POST),
             'files' => $_FILES,
             'json' => $this->requestData,

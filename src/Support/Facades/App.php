@@ -2,7 +2,7 @@
 
 namespace MiniRestFramework\Support\Facades;
 
-class TemplateEngine extends Facade
+class App extends Facade
 {
     /**
      * Retorna o nome do serviço registrado no container.
@@ -11,6 +11,6 @@ class TemplateEngine extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'templateEngine';
+        return \MiniRestFramework\Core\App::class;
     }
 }

@@ -25,7 +25,7 @@ Route::post('/testClosures/{id}/{isReal}', function (Request $request, $id, $isR
 
 
 Route::get('/test/xss', function (Request $request) {
-    return Response::html($request->get('data'));
+    return Response::html($request->get('data') ?? '');
 });
 
 Route::get('/example/view/{nome}', function (Request $request, string $nome) {
@@ -86,3 +86,5 @@ Route::prefix('/api')->group([], function ($route) {
 Route::prefix('/test')->group([], function () {
     Route::post('/test1', [ExampleController::class, 'handleRequest']);
 });
+
+//dd(json_encode(Router::$routes));

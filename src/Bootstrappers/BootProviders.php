@@ -2,6 +2,7 @@
 
 namespace MiniRestFramework\Bootstrappers;
 
+use MiniRestFramework\config\Config;
 use MiniRestFramework\DI\Container;
 
 class BootProviders
@@ -15,7 +16,7 @@ class BootProviders
 
     public function bootstrap()
     {
-        $config = $this->container->make('config');
+        $config = $this->container->make(Config::class);
         $providers = $config->get('app.providers') ?? [];
 
         foreach ($providers as $provider) {

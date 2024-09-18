@@ -3,6 +3,7 @@
 namespace MiniRestFramework\Bootstrappers;
 
 use MiniRestFramework\config\Config;
+use MiniRestFramework\Core\App;
 use MiniRestFramework\DI\Container;
 
 class LoadConfiguration
@@ -16,10 +17,10 @@ class LoadConfiguration
 
     public function bootstrap()
     {
-        $app = $this->container->make('app');
+        $app = $this->container->make(App::class);
         $basePath = $app->getBasePath();
 
-        $this->container->singleton('config', function () use ($basePath) {
+        $this->container->singleton(Config::class, function () use ($basePath) {
             return new Config($basePath . env('CONFIG_PATH'));
         });
     }

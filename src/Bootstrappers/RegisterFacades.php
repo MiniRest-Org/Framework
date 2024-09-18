@@ -2,6 +2,7 @@
 
 namespace MiniRestFramework\Bootstrappers;
 
+use MiniRestFramework\config\Config;
 use MiniRestFramework\DI\Container;
 use MiniRestFramework\Support\Facades\Facade;
 
@@ -16,6 +17,23 @@ class RegisterFacades
 
     public function bootstrap()
     {
-        Facade::setContainer($this->container);
+
+        $config = $this->container->make(Config::class);
+
+        // Configura o container para cada alias
+        foreach ($config->get('app.aliases') as $alias => $facade) {
+            if (class_exists($facade)) {
+                Facade::setContainer($this->container);
+                $this->container->singleton($alias, function () use ($facade) {
+                    return new $facade;
+                });
+            }
+        }
+
+//        // Configura o alias de facades para o container
+//        foreach ($config->get('app.aliases') as $alias => $facade) {
+//            class_alias($facade, $alias);
+//        }
+
     }
 }

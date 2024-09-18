@@ -1,5 +1,8 @@
 <?php
 
+use MiniRestFramework\DI\Container;
+use MiniRestFramework\Support\Facades\{App, Config, View};
+
 if (!function_exists("view")) {
     /**
      * Renderiza um template com variáveis.
@@ -11,9 +14,32 @@ if (!function_exists("view")) {
      */
     function view(string $template, array $variables = []): bool|string
     {
-        return \MiniRestFramework\Support\Facades\TemplateEngine::render($template, $variables);
+        return View::render($template, $variables);
     }
 }
+
+
+if (!function_exists('app')) {
+    /**
+     * Obtém uma instância do container ou resolve um serviço.
+     *
+     * @param string|null $abstract Nome da classe ou interface para resolver.
+     * @return Container|mixed
+     * @throws Exception
+     */
+    function app(string $abstract = null): mixed
+    {
+
+        if ($abstract !== null) {
+            return App::getContainer()->get($abstract);
+        }
+
+        // Obtém a instância do container global
+        return App::getContainer();
+
+    }
+}
+
 
 if (!function_exists("dd")) {
     /**
@@ -57,7 +83,7 @@ if (!function_exists("config")) {
      */
     function config(string $key, mixed $default = null): mixed
     {
-        return \MiniRestFramework\Support\Facades\Config::get($key, $default);
+        return Config::get($key, $default);
     }
 }
 
