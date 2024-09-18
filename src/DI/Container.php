@@ -66,7 +66,7 @@ class Container {
 
         $constructor = $reflection->getConstructor();
         if (!$constructor) {
-            return $this->instances[$key] = $reflection->newInstance();
+            return $reflection->newInstance();
         }
 
         $parameters = $constructor->getParameters();
@@ -84,7 +84,15 @@ class Container {
             }
         }
 
-        return $this->instances[$key] = $reflection->newInstanceArgs($dependencies);
+        $instance = $reflection->newInstanceArgs($dependencies);
+
+        // Armazena a instância apenas se for um singleton
+        if (isset($this->instances[$key])) {
+            $this->instances[$key] = $instance;
+        }
+
+
+        return $instance;
     }
 
     /**
