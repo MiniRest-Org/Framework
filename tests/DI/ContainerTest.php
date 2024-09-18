@@ -4,11 +4,11 @@ namespace MiniRestFramework\Tests\DI;
 
 use MiniRestFramework\DI\Container;
 use MiniRestFramework\Http\Request\Request;
-use MiniRestFramework\Tests\Objects\NonInstantiableClass;
+use MiniRestFramework\Tests\Examples\Objects\ExampleAction;
+use MiniRestFramework\Tests\Examples\Objects\ExampleRepository;
+use MiniRestFramework\Tests\Examples\Objects\ExampleService;
+use MiniRestFramework\Tests\Examples\Objects\NonInstantiableClass;
 use PHPUnit\Framework\TestCase;
-use MiniRestFramework\Tests\Objects\ExampleAction;
-use MiniRestFramework\Tests\Objects\ExampleRepository;
-use MiniRestFramework\Tests\Objects\ExampleService;
 
 class ContainerTest extends TestCase
 {
@@ -102,7 +102,7 @@ class ContainerTest extends TestCase
     public function testMakeClassNotInstantiable()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("Class MiniRestFramework\Tests\Objects\NonInstantiableClass cannot be instantiated.");
+        $this->expectExceptionMessage("Class MiniRestFramework\Tests\Examples\Objects\NonInstantiableClass cannot be instantiated.");
         $this->container->make(NonInstantiableClass::class);
     }
 
@@ -111,6 +111,24 @@ class ContainerTest extends TestCase
         $instance = $this->container->make(Request::class);
         $this->assertInstanceOf(Request::class, $instance);
     }
+
+//    public function testBindingInterfaceToConcreteImplementation()
+//    {
+//        // Cria uma nova instância do container
+//        $container = new Container();
+//
+//        // Faz o binding da interface 'ServiceInterface' para a implementação 'ServiceConcrete'
+//        $container->bind(ServiceInterface::class, ServiceConcrete::class);
+//
+//        // Resolve a interface do container
+//        $resolvedInstance = $container->make(ServiceInterface::class);
+//
+//        // Verifica se a instância resolvida é do tipo 'ServiceConcrete'
+//        $this->assertInstanceOf(ServiceConcrete::class, $resolvedInstance);
+//
+//        // Verifica se o método 'execute' retorna o valor correto
+//        $this->assertEquals('ServiceConcrete executed', $resolvedInstance->execute());
+//    }
 
 
 }

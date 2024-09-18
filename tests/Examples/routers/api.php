@@ -3,9 +3,9 @@
 use MiniRestFramework\Http\Request\Request;
 use MiniRestFramework\Http\Response\Response;
 use MiniRestFramework\Router\Route;
-use MiniRestFramework\Tests\Objects\ExampleController;
-use MiniRestFramework\Tests\Objects\ExampleMiddleware;
-use MiniRestFramework\Tests\Objects\ExampleMiddleware2;
+use MiniRestFramework\Tests\Examples\Objects\ExampleController;
+use MiniRestFramework\Tests\Examples\Objects\ExampleMiddleware;
+use MiniRestFramework\Tests\Examples\Objects\ExampleMiddleware2;
 
 
 Route::prefix('/api')->group([], function () {

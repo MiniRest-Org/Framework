@@ -35,7 +35,7 @@ class Container {
      * @return mixed A instância resolvida.
      * @throws \Exception Se o serviço não for encontrado ou não puder ser instanciado.
      */
-    public function make(object|string $abstract): mixed
+    public function make(mixed $abstract): mixed
     {
         $key = is_object($abstract) ? spl_object_hash($abstract) : $abstract;
 

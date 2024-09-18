@@ -1,6 +1,6 @@
 <?php
 
-namespace MiniRestFramework\Tests\Objects;
+namespace MiniRestFramework\Tests\Examples\Objects;
 
 class ExampleService
 {

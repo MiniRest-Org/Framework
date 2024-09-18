@@ -1,9 +1,8 @@
 <?php
 
-namespace MiniRestFramework\Tests\Objects;
+namespace MiniRestFramework\Tests\Examples\Objects;
 
 use MiniRestFramework\Http\Request\Request;
-use MiniRestFramework\Http\Response\Response;
 
 class ExampleAction
 {
