@@ -30,6 +30,16 @@ class Router {
         ];
     }
 
+    public static function getRoutes(): array
+    {
+        return self::$routes;
+    }
+
+    public static function clearRoutes()
+    {
+        self::$routes = [];
+    }
+
     /**
      * @throws \ReflectionException
      */

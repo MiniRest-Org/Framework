@@ -6,7 +6,7 @@ use MiniRestFramework\Http\Request\Request;
 use MiniRestFramework\Http\RequestClient;
 use PHPUnit\Framework\TestCase;
 
-class RouterTest extends TestCase
+class RouterClientTest extends TestCase
 {
     public function testRequestSimulation()
     {
@@ -18,6 +18,30 @@ class RouterTest extends TestCase
 
         $this->assertEquals('GET', $request->getMethod());
         $this->assertEquals('/test', $request->getUri());
+    }
+
+    public function testRequestSimulationNotFound()
+    {
+        // Configurando o ambiente de teste
+        $_SERVER['REQUEST_URI'] = '/test';
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['HTTP_HOST'] = 'localhost';
+
+        // Inicializando o RequestClient
+        $requestClient = new RequestClient('http://localhost:8000');
+
+        // Definindo os headers e opções para a requisição
+        $headers = ['Accept' => 'application/json'];
+        $options = [
+            'headers' => $headers
+        ];
+
+        // Enviando a requisição GET para o endpoint /test
+        $response = $requestClient->sendRequest('POST', '/test123', $options);
+
+        // Verificando os resultados
+        $this->assertEquals(404, $response['status_code'], "Expected status code 404");
+
     }
 
     public function testDispatchGetRequest()

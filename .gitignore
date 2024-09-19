@@ -11,6 +11,7 @@ composer.lock
 .phpunit.*
 
 coverage-report/*
+reports/*
 
 ##### Windows
 # Windows thumbnail cache files
