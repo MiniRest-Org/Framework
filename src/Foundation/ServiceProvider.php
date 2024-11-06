@@ -2,7 +2,7 @@
 
 namespace MiniRestFramework\Foundation;
 
-class ServiceProvider
+abstract class ServiceProvider
 {
     protected $app;
 
@@ -11,13 +11,16 @@ class ServiceProvider
         $this->app = $app;
     }
 
-    public function register()
-    {
-        // Cada provider terá sua lógica de registro
-    }
+    abstract public function register();
 
-    public function boot()
-    {
-        // Para lógica de inicialização pós-registro
+    abstract public function boot();
+
+    public static function defaultProvides() {
+        return collect([
+            \MiniRestFramework\Providers\RouterServiceProvider::class,
+            \MiniRestFramework\Providers\RouteServiceProvider::class,
+            \MiniRestFramework\Providers\TemplateEngineServiceProvider::class,
+            \MiniRestFramework\Providers\DatabaseServiceProvider::class
+        ]);
     }
 }

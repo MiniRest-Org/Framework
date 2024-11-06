@@ -7,11 +7,9 @@ return [
     'root_path' => dirname(__DIR__, 1),
     'views_path' => dirname(__DIR__, 1) . '/views/',
 
-    'providers' => [
-        \MiniRestFramework\Providers\RouterServiceProvider::class,
-        \MiniRestFramework\Providers\RouteServiceProvider::class,
-        \MiniRestFramework\Providers\TemplateEngineServiceProvider::class
-    ],
+    'providers' => \MiniRestFramework\Foundation\ServiceProvider::defaultProvides()->merge([
+
+    ]),
 
     'aliases' => \MiniRestFramework\Support\Facades\Facade::defaultAliases()->merge([
 
