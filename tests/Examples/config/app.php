@@ -1,5 +1,9 @@
 <?php
 
+use MiniRestFramework\Support\Facades\Facade;
+use MiniRestFramework\Support\ServiceProvider;
+use MiniRestFramework\Tests\Examples\Providers\AppServiceProvider;
+
 return [
     'name' => 'My Application',
     'env' => 'production',
@@ -7,11 +11,11 @@ return [
     'root_path' => dirname(__DIR__, 1),
     'views_path' => dirname(__DIR__, 1) . '/views/',
 
-    'providers' => \MiniRestFramework\Foundation\ServiceProvider::defaultProvides()->merge([
-
+    'providers' => ServiceProvider::defaultProvides()->merge([
+        AppServiceProvider::class,
     ]),
 
-    'aliases' => \MiniRestFramework\Support\Facades\Facade::defaultAliases()->merge([
-
+    'aliases' => Facade::defaultAliases()->merge([
+        'Test' => \MiniRestFramework\Tests\Examples\Facades\TestFacade::class
     ])
 ];

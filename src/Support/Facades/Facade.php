@@ -53,11 +53,11 @@ abstract class Facade
     public static function defaultAliases(): Collection
     {
         return collect([
-            'App' => App::class,
-            'Config' => Config::class,
-            'View' => View::class,
-            'Router' => Route::class,
-            'Route' => Route::class,
+            'app' => App::class,
+            'config' => Config::class,
+            'view' => View::class,
+            'router' => Router::class,
+            'route' => Route::class,
         ]);
     }
 }

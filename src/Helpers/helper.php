@@ -2,6 +2,7 @@
 
 use MiniRestFramework\DI\Container;
 use MiniRestFramework\Support\Facades\{App, Config, View};
+use MiniRestFramework\Foundation\Application;
 
 if (!function_exists("view")) {
     /**
@@ -31,12 +32,27 @@ if (!function_exists('app')) {
     {
 
         if ($abstract !== null) {
-            return App::getContainer()->get($abstract);
+            return Application::getContainer()->get($abstract);
         }
 
         // Obtém a instância do container global
-        return App::getContainer();
+        return Application::getContainer();
 
+    }
+}
+
+if (!function_exists('class_basename')) {
+    /**
+     * Get the class "basename" of the given object / class.
+     *
+     * @param object|string $class
+     * @return string
+     */
+    function class_basename(object|string $class): string
+    {
+        $class = is_object($class) ? get_class($class) : $class;
+
+        return basename(str_replace('\\', '/', $class));
     }
 }
 
@@ -56,6 +72,20 @@ if (!function_exists("dd")) {
         die();
     }
 
+}
+
+if (! function_exists('storage_path')) {
+    /**
+     * Get the path to the storage folder.
+     *
+     * @param string $path
+     * @return string
+     * @throws Exception
+     */
+    function storage_path(string $path = ''): string
+    {
+        return app()->storagePath($path);
+    }
 }
 
 if (!function_exists("dump")) {

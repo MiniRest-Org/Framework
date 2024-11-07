@@ -1,10 +1,10 @@
 <?php
 
-namespace MiniRestFramework\Bootstrappers;
+namespace MiniRestFramework\Foundation\Bootstrap;
 
 use MiniRestFramework\config\Config;
-use MiniRestFramework\Core\App;
 use MiniRestFramework\DI\Container;
+use MiniRestFramework\Foundation\Application;
 
 class LoadConfiguration
 {
@@ -17,7 +17,7 @@ class LoadConfiguration
 
     public function bootstrap()
     {
-        $app = $this->container->make(App::class);
+        $app = $this->container->make(Application::class);
         $basePath = $app->getBasePath();
 
         $this->container->singleton(Config::class, function () use ($basePath) {

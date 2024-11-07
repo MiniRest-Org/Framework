@@ -2,8 +2,6 @@
 
 namespace MiniRestFramework\Support\Facades;
 
-
-
 use MiniRestFramework\View\TemplateEngine;
 
 class View extends Facade

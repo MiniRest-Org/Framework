@@ -3,7 +3,7 @@
 namespace MiniRestFramework\DI;
 
 class Container {
-    private array $instances = [];
+    public array $instances = [];
     private array $bindings = [];
 
     /**
@@ -22,10 +22,11 @@ class Container {
      *
      * @param string $abstract
      * @param callable|string $concrete
+     * @return mixed
      */
-    public function singleton(string $abstract, callable|string $concrete): void
+    public function singleton(string $abstract, callable|string $concrete): mixed
     {
-        $this->instances[$abstract] = is_callable($concrete) ? $concrete() : $concrete;
+        return $this->instances[$abstract] = is_callable($concrete) ? $concrete() : $concrete;
     }
 
     /**
@@ -49,6 +50,11 @@ class Container {
         }
 
         if (is_string($abstract)) {
+
+            if (class_exists('Facades\\'.$abstract)) {
+                $this->instances[$abstract] = $abstract;
+            }
+
             if (!class_exists($abstract)) {
                 throw new \Exception("Class {$abstract} not found.");
             }
@@ -63,7 +69,6 @@ class Container {
         if (!$reflection->isInstantiable()) {
             throw new \Exception("Class {$abstract} cannot be instantiated.");
         }
-
         $constructor = $reflection->getConstructor();
         if (!$constructor) {
             return $reflection->newInstance();

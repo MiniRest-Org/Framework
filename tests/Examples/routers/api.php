@@ -30,6 +30,7 @@ Route::get('/test/xss', function (Request $request) {
 
 Route::get('/example/view/{nome}', function (Request $request, string $nome) {
 
+    return Response::html(Facades\MiniRestFramework\Tests\Examples\Objects\DependentService::getMessage());
     return Response::html(
         view('counter', [
             'page' => $nome,

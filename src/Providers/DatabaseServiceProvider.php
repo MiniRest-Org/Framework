@@ -3,7 +3,7 @@
 namespace MiniRestFramework\Providers;
 
 use MiniRestFramework\Database\DatabaseConnection;
-use MiniRestFramework\Foundation\ServiceProvider;
+use MiniRestFramework\Support\ServiceProvider;
 
 class DatabaseServiceProvider extends ServiceProvider
 {

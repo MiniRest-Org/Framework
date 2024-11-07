@@ -2,7 +2,7 @@
 
 namespace MiniRestFramework\Providers;
 
-use MiniRestFramework\Foundation\ServiceProvider;
+use MiniRestFramework\Support\ServiceProvider;
 use MiniRestFramework\View\TemplateEngine;
 
 class TemplateEngineServiceProvider extends ServiceProvider

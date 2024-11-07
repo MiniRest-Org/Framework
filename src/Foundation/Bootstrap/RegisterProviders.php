@@ -1,6 +1,6 @@
 <?php
 
-namespace MiniRestFramework\Bootstrappers;
+namespace MiniRestFramework\Foundation\Bootstrap;
 
 use MiniRestFramework\config\Config;
 use MiniRestFramework\DI\Container;
@@ -18,7 +18,6 @@ class RegisterProviders
     {
         $config = $this->container->make(Config::class);
         $providers = $config->get('app.providers') ?? [];
-
         foreach ($providers as $provider) {
             $instance = new $provider($this->container);
             $instance->register();

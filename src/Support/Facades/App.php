@@ -2,6 +2,8 @@
 
 namespace MiniRestFramework\Support\Facades;
 
+use MiniRestFramework\Foundation\Application;
+
 class App extends Facade
 {
     /**
@@ -11,6 +13,6 @@ class App extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return \MiniRestFramework\Core\App::class;
+        return Application::class;
     }
 }

@@ -1,15 +1,13 @@
 <?php
 
-use MiniRestFramework\Core\App;
+use MiniRestFramework\Foundation\Application;
 
-$container = new \MiniRestFramework\DI\Container();
-
-$container->singleton(App::class, function() use ($container) {
-    return new App($container);
-});
-
-$app = $container->make(App::class);
+$app = (new Application())->make(Application::class);
 
 $app->setBasePath(dirname(__DIR__));
+
+$app->singleton(Application::class, function() use ($app) {
+    return $app;
+});
 
 return $app;

@@ -1,6 +1,6 @@
 <?php
 
-namespace MiniRestFramework\Foundation;
+namespace MiniRestFramework\Support;
 
 abstract class ServiceProvider
 {

@@ -2,12 +2,8 @@
 
 namespace MiniRestFramework\Providers;
 
-use MiniRestFramework\Foundation\ServiceProvider;
-use MiniRestFramework\Http\Request\Request;
-use MiniRestFramework\Router\ActionDispatcher;
 use MiniRestFramework\Router\Route;
-use MiniRestFramework\Router\Router;
-use MiniRestFramework\Router\RouterLoader;
+use MiniRestFramework\Support\ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {

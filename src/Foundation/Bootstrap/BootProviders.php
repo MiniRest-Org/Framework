@@ -1,6 +1,6 @@
 <?php
 
-namespace MiniRestFramework\Bootstrappers;
+namespace MiniRestFramework\Foundation\Bootstrap;
 
 use MiniRestFramework\config\Config;
 use MiniRestFramework\DI\Container;
