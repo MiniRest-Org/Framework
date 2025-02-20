@@ -30,7 +30,6 @@ Route::get('/test/xss', function (Request $request) {
 
 Route::get('/example/view/{nome}', function (Request $request, string $nome) {
 
-    return Response::html(Facades\MiniRestFramework\Tests\Examples\Objects\DependentService::getMessage());
     return Response::html(
         view('counter', [
             'page' => $nome,
@@ -62,7 +61,7 @@ Route::post('/testParam2/{id}/{isReal}', [ExampleController::class, 'testParam']
 
 Route::prefix('/v2')->group([], function () {
     Route::prefix('/api')->group([], function () {
-        Route::get('/test', [ExampleController::class, 'handleRequest']);
+        Route::get('/test', [\MiniRestFramework\Tests\Examples\Objects\ExampleController::class, 'handleRequest']);
     });
     Route::prefix('/api2')->group([], function () {
         Route::get('/test', [ExampleController::class, 'handleRequest']);

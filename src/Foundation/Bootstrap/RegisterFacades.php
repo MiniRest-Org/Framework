@@ -4,7 +4,6 @@ namespace MiniRestFramework\Foundation\Bootstrap;
 
 use MiniRestFramework\config\Config;
 use MiniRestFramework\DI\Container;
-use MiniRestFramework\Foundation\AliasLoader;
 use MiniRestFramework\Support\Facades\Facade;
 
 class RegisterFacades
@@ -30,9 +29,5 @@ class RegisterFacades
                 });
             }
         }
-
-        AliasLoader::getInstance(
-            $config->get('app.aliases')->toArray(),
-        )->register();
     }
 }

@@ -66,6 +66,11 @@ class Container {
             throw new \Exception("Invalid type provided for make method.");
         }
 
+        return $this->createInstanceAndInjectDependencies($reflection, $abstract, $key);
+    }
+
+    private function createInstanceAndInjectDependencies($reflection, $abstract, $key)
+    {
         if (!$reflection->isInstantiable()) {
             throw new \Exception("Class {$abstract} cannot be instantiated.");
         }
