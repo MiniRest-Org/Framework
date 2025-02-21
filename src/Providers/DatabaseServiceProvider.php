@@ -15,6 +15,10 @@ class DatabaseServiceProvider extends ServiceProvider
                 config('database'),
             );
         });
+
+        $this->app->singleton('db', function () {
+            return new \Illuminate\Database\Capsule\Manager();
+        });
     }
 
     public function boot(): void

@@ -6,13 +6,35 @@ use MiniRestFramework\Http\Request\RequestValidation\RequestValidator;
 
 class Request extends RequestValidator
 {
-    private array $requestData = [];
-    private array $routeParams = [];
+    private array $get;
+    private array $post;
+    private array $files;
+    private array $server;
+    private array $requestData;
+    private SanitizeService $sanitizeService;
+    private array $headers;
+    private array $routeParams;
 
-    public function __construct()
+    public function __construct(
+        SanitizeService $sanitizeService,
+        array $get = [],
+        array $post = [],
+        array $files = [],
+        array $server = [],
+        array $jsonData = null,
+        array $headers = []
+    )
     {
-        $this->setRequestParams();
+        $this->sanitizeService = $sanitizeService;
+        $this->get = $this->sanitize($get ?: $_GET);
+        $this->post = $this->sanitize($post ?: $_POST);
+        $this->files = $files ?: $_FILES;
+        $this->server = $server ?: $_SERVER;
+        $this->requestData = $this->sanitize($jsonData ?? $this->getJsonData());
+        $this->headers = $headers ?: $this->getAllHeaders();
+        $this->routeParams = [];
     }
+
     public function set(string $key, $value): void
     {
         $this->routeParams[$key] = $this->sanitize($value);
@@ -35,24 +57,22 @@ class Request extends RequestValidator
 
     public function __get(string $name)
     {
-        $data = $this->all();
-        return $this->findValue($name, $data);
+        return $this->findValue($name, $this->all());
     }
 
     public function get(string $key, $default = null)
     {
-        $data = $this->all();
-        return $this->findValue($key, $data, $default);
+        return $this->findValue($key, $this->all(), $default);
     }
 
     public function post(string $key, $default = null)
     {
-        return $this->findValue($key, ['post' => $_POST], $default);
+        return $this->findValue($key, ['post' => $this->post], $default);
     }
 
     public function files(string $key, $default = null)
     {
-        return $this->findValue($key, ['files' => $_FILES], $default);
+        return $this->findValue($key, ['files' => $this->files], $default);
     }
 
     public function json(string $key, $default = null)
@@ -63,10 +83,11 @@ class Request extends RequestValidator
     public function all(): array
     {
         return [
-            'get' => $this->sanitize(array_merge($_GET, $this->getRouteParams())),
-            'post' => $this->sanitize($_POST),
-            'files' => $_FILES,
+            'get' => $this->sanitize($this->get),
+            'post' => $this->sanitize($this->post),
+            'files' => $this->files,
             'json' => $this->requestData,
+            'routeParams' => $this->routeParams,
         ];
     }
 
@@ -80,13 +101,9 @@ class Request extends RequestValidator
         return $default;
     }
 
-    private function sanitize($data): array|string
+    public function sanitize($data): array|string
     {
-        if (is_array($data)) {
-            return array_map([$this, 'sanitize'], $data);
-        }
-
-        return htmlspecialchars((string) $data, ENT_QUOTES, 'UTF-8');
+        return $this->sanitizeService->sanitize($data);
     }
 
     protected function getJsonData(): array
@@ -97,14 +114,13 @@ class Request extends RequestValidator
 
     public function headers(string $headerName)
     {
-        $headers = $this->getAllHeaders();
-        return $headers[$headerName] ?? null;
+        return $this->headers[$headerName] ?? null;
     }
 
     private function getAllHeaders(): array
     {
         $headers = [];
-        foreach ($_SERVER as $key => $value) {
+        foreach ($this->server as $key => $value) {
             if (str_starts_with($key, 'HTTP_')) {
                 $headerName = str_replace('_', ' ', substr($key, 5));
                 $headerName = ucwords(strtolower($headerName));
@@ -117,11 +133,11 @@ class Request extends RequestValidator
 
     public function getMethod(): string
     {
-        return $_SERVER['REQUEST_METHOD'];
+        return $this->server['REQUEST_METHOD'] ?? 'GET';
     }
 
     public function getUri(): string
     {
-        return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '';
+        return parse_url($this->server['REQUEST_URI'] ?? '', PHP_URL_PATH) ?? '';
     }
 }

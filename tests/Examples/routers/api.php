@@ -53,6 +53,18 @@ Route::post('/test/validation', function (Request $request) {
     return Response::json(['teste']);
 });
 
+Route::post('/test/validation/unique', function (Request $request) {
+    $validate = $request->rules([
+        'email' => 'unique:user,email',
+    ]);
+
+    if ($validate->fails()) {
+        return Response::json(['errors' => $request->errors()]);
+    }
+
+    return Response::json(['teste']);
+});
+
 Route::post('/testWithoutDI', [ExampleController::class, 'testWithoutDI']);
 Route::post('/sayHello', [ExampleController::class, 'testMethod']);
 Route::post('/testParam/{id}', [ExampleController::class, 'testParam']);

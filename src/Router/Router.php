@@ -35,7 +35,7 @@ class Router {
         return self::$routes;
     }
 
-    public static function clearRoutes()
+    public static function clearRoutes(): void
     {
         self::$routes = [];
     }

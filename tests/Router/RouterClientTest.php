@@ -2,19 +2,27 @@
 
 namespace MiniRestFramework\Tests\Router;
 
+use MiniRestFramework\DI\Container;
 use MiniRestFramework\Http\Request\Request;
 use MiniRestFramework\Http\RequestClient;
 use PHPUnit\Framework\TestCase;
 
 class RouterClientTest extends TestCase
 {
+    private Container $container;
+
+    protected function setUp(): void
+    {
+        $this->container = new Container();
+    }
+
     public function testRequestSimulation()
     {
         // Simulando os dados da requisição
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_SERVER['REQUEST_URI'] = '/test';
 
-        $request = new Request();
+        $request = $this->container->make(Request::class);
 
         $this->assertEquals('GET', $request->getMethod());
         $this->assertEquals('/test', $request->getUri());

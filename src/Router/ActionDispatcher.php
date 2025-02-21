@@ -17,6 +17,7 @@ class ActionDispatcher {
 
     public function execute(Request $request, $action, $params, $middlewares = null): Response
     {
+
         if (is_callable($action)) {
             return $this->handleClosure($request, $action, $middlewares);
         }

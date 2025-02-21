@@ -58,6 +58,7 @@ abstract class Facade
             'view' => View::class,
             'router' => Router::class,
             'route' => Route::class,
+            'db' => DB::class,
         ]);
     }
 }

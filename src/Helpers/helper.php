@@ -1,7 +1,7 @@
 <?php
 
 use MiniRestFramework\DI\Container;
-use MiniRestFramework\Support\Facades\{App, Config, View};
+use MiniRestFramework\Support\Facades\{App, Config, DB, View};
 use MiniRestFramework\Foundation\Application;
 
 if (!function_exists("view")) {
