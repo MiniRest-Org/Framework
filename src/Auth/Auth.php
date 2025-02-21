@@ -37,7 +37,7 @@ class Auth
             throw new UserNotFoundException();
         }
 
-        return self::createToken($user);
+        return self::createToken($user->id);
     }
 
     /**
