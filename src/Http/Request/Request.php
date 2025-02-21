@@ -10,10 +10,11 @@ class Request extends RequestValidator
     private array $post;
     private array $files;
     private array $server;
-    private array $requestData;
     private SanitizeService $sanitizeService;
     private array $headers;
-    private array $routeParams;
+
+    private array $requestData = [];
+    private array $routeParams = [];
 
     public function __construct(
         SanitizeService $sanitizeService,
