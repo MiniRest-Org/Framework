@@ -1,6 +1,6 @@
 <?php
 
-namespace MiniRestFramework\Tests\Router;
+namespace MiniRestFramework\Tests;
 
 use MiniRestFramework\DI\Container;
 use MiniRestFramework\Http\Request\Request;
@@ -36,7 +36,7 @@ class RouterClientTest extends TestCase
         $_SERVER['HTTP_HOST'] = 'localhost';
 
         // Inicializando o RequestClient
-        $requestClient = new RequestClient('http://localhost:8000');
+        $requestClient = new RequestClient('http://localhost:8080');
 
         // Definindo os headers e opções para a requisição
         $headers = ['Accept' => 'application/json'];
@@ -60,7 +60,7 @@ class RouterClientTest extends TestCase
         $_SERVER['HTTP_HOST'] = 'localhost';
 
         // Inicializando o RequestClient
-        $requestClient = new RequestClient('http://localhost:8000');
+        $requestClient = new RequestClient('http://localhost:8080');
 
         // Definindo os headers e opções para a requisição
         $headers = ['Accept' => 'application/json'];
@@ -84,7 +84,7 @@ class RouterClientTest extends TestCase
         $_SERVER['HTTP_HOST'] = 'localhost';
 
         // Inicializando o RequestClient
-        $requestClient = new RequestClient('http://localhost:8000');
+        $requestClient = new RequestClient('http://localhost:8080');
 
         // Definindo os headers e opções para a requisição
         $headers = ['Accept' => 'application/json'];
@@ -107,7 +107,7 @@ class RouterClientTest extends TestCase
         $_SERVER['HTTP_HOST'] = 'localhost';
 
 
-        $requestClient = new RequestClient('http://localhost:8000');
+        $requestClient = new RequestClient('http://localhost:8080');
 
         // Definindo os headers e opções para a requisição
         $headers = ['Accept' => 'application/json'];
@@ -128,7 +128,7 @@ class RouterClientTest extends TestCase
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_SERVER['HTTP_HOST'] = 'localhost';
 
-        $requestClient = new RequestClient('http://localhost:8000');
+        $requestClient = new RequestClient('http://localhost:8080');
 
         // Definindo os headers e opções para a requisição
         $headers = ['Accept' => 'application/json'];
@@ -152,7 +152,7 @@ class RouterClientTest extends TestCase
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $_SERVER['HTTP_HOST'] = 'localhost';
 
-        $requestClient = new RequestClient('http://localhost:8000');
+        $requestClient = new RequestClient('http://localhost:8080');
 
         // Definindo os headers e opções para a requisição
         $headers = ['Accept' => 'application/json'];

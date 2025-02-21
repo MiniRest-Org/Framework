@@ -1,6 +1,6 @@
 <?php
 
-namespace MiniRestFramework\Tests\Router;
+namespace MiniRestFramework\Tests;
 
 use MiniRestFramework\Router\Route;
 use MiniRestFramework\Router\Router;

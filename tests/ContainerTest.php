@@ -1,6 +1,6 @@
 <?php
 
-namespace MiniRestFramework\Tests\DI;
+namespace MiniRestFramework\Tests;
 
 use MiniRestFramework\DI\Container;
 use MiniRestFramework\Http\Request\Request;
